@@ -25,9 +25,12 @@ export async function process(source: string) {
 }
 
 export async function replaceImageUrl(node: Image) {
-    const imageResponse = await axios.get(node.url, { responseType: "stream" });
+    const oldUrl = node.url;
+    const imageResponse = await axios.get(oldUrl, { responseType: "stream" });
 
     const result = await uploadToIpfs(imageResponse.data);
 
     node.url = `ipfs://${result.hashV0}`;
+
+    console.log(`${new Date}: ${oldUrl} -> ${node.url}`);
 }
