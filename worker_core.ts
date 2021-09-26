@@ -11,11 +11,11 @@ export async function process(source: string) {
         .use(remarkParse)
         .parse(source);
 
-    const imageNodes = new Array<Image>();
+    const promises = new Array<Promise<void>>();
 
-    visit(mdAst, "image", imageNode => imageNodes.push(imageNode));
+    visit(mdAst, "image", imageNode => promises.push(replaceImageUrl(imageNode)));
 
-    await Promise.all(imageNodes.map(replaceImageUrl));
+    await Promise.all(promises);
 
     const md = unified()
         .use(remarkStringify)
