@@ -2,10 +2,10 @@ FROM node:14-alpine AS build
 WORKDIR /sln
 COPY package.json pnpm-lock.yaml ./
 RUN npx pnpm i
-COPY main.ts worker.ts tsconfig.json ./
+COPY *.ts tsconfig.json ./
 RUN npm run build
 RUN npm prune --production
-RUN mv ./dist/main.js ./dist/main.mjs && mv ./dist/worker.js ./dist/worker.mjs
+RUN ls dist/*.js | xargs -I {} sh -c 'sed -i "s/\.js/\.mjs/g" $1 && mv "$1" "${1%.js}".mjs' _ {}
 
 FROM node:14-alpine
 WORKDIR /app
