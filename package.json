@@ -10,7 +10,9 @@
   "author": "KodamaSakuno",
   "license": "ISC",
   "dependencies": {
+    "@fleekhq/fleek-storage-js": "^1.0.20",
     "@koa/router": "^10.1.1",
+    "axios": "^0.21.4",
     "koa": "^2.13.3",
     "koa-bodyparser": "^4.3.0",
     "rehype-parse": "^8.0.3",
@@ -18,13 +20,15 @@
     "remark-parse": "^10.0.0",
     "remark-stringify": "^10.0.0",
     "unified": "^10.1.0",
-    "unist-util-visit": "^4.1.0"
+    "unist-util-visit": "^4.1.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/koa": "^2.13.4",
     "@types/koa-bodyparser": "^4.3.3",
     "@types/koa__router": "^8.0.8",
     "@types/node": "^16.9.6",
+    "@types/uuid": "^8.3.1",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
   }
