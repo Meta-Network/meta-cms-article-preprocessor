@@ -3,6 +3,8 @@ import { fileURLToPath } from "node:url";
 import Koa from "koa";
 import Router from "@koa/router";
 import BodyParser from "koa-bodyparser";
+import axios from "axios";
+import { uploadToIpfs } from "./ipfs.js";
 
 const workerFilename = fileURLToPath(new URL("./worker.mjs", import.meta.url));
 
@@ -23,6 +25,12 @@ router.post("/process", async ctx => {
     ctx.body = await new Promise<string>(resolve => {
         worker.on("message", result => resolve(result));
     });;
+});
+
+router.post("/image/uploadByUrl", async ctx => {
+    const imageResponse = await axios.get(ctx.request.body, { responseType: "stream" });
+
+    ctx.body = await uploadToIpfs(imageResponse.data);
 });
 
 app.use(router.routes());
