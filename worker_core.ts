@@ -28,9 +28,13 @@ export async function replaceImageUrl(node: Image) {
     const oldUrl = node.url;
     const imageResponse = await axios.get(oldUrl, { responseType: "stream" });
 
-    const result = await uploadToIpfs(imageResponse.data);
+    try {
+        const result = await uploadToIpfs(imageResponse.data);
 
-    node.url = `ipfs://${result.hashV0}`;
+        node.url = `ipfs://${result.hashV0}`;
 
-    console.log(`${new Date}: ${oldUrl} -> ${node.url}`);
+        console.log(`${new Date}: ${oldUrl} -> ${node.url}`);
+    } catch (e) {
+        console.error(`${new Date}: unhandled exception when processing ${oldUrl}`, e);
+    }
 }

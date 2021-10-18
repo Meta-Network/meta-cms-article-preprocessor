@@ -30,7 +30,12 @@ router.post("/process", async ctx => {
 router.post("/image/uploadByUrl", async ctx => {
     const imageResponse = await axios.get(ctx.request.body, { responseType: "stream" });
 
-    ctx.body = await uploadToIpfs(imageResponse.data);
+    try {
+        ctx.body = await uploadToIpfs(imageResponse.data);
+    } catch (e) {
+        console.error(`${new Date}: unhandled exception when processing ${ctx.request.body}`, e);
+        ctx.status = 500;
+    }
 });
 
 app.use(router.routes());
