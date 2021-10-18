@@ -36,5 +36,6 @@ export async function replaceImageUrl(node: Image) {
         console.log(`${new Date}: ${oldUrl} -> ${node.url}`);
     } catch (e) {
         console.error(`${new Date}: unhandled exception when processing ${oldUrl}`, e);
+        throw e;
     }
 }

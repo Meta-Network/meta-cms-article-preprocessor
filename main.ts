@@ -34,7 +34,7 @@ router.post("/image/uploadByUrl", async ctx => {
         ctx.body = await uploadToIpfs(imageResponse.data);
     } catch (e) {
         console.error(`${new Date}: unhandled exception when processing ${ctx.request.body}`, e);
-        ctx.status = 500;
+        throw e;
     }
 });
 
