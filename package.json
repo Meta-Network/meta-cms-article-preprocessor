@@ -7,8 +7,8 @@
     "dev": "node --loader ts-node/esm main.ts",
     "build": "tsc -p ."
   },
-  "author": "KodamaSakuno",
-  "license": "ISC",
+  "author": "Meta Network <noreply@metanetwork.online>",
+  "license": "MIT License",
   "dependencies": {
     "@fleekhq/fleek-storage-js": "^1.0.20",
     "@koa/router": "^10.1.1",
